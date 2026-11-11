@@ -1,6 +1,6 @@
-# MazapanYCoca: resolvedor de matemáticas y química
+# Ecuo by: MazapanYCoca™ — resolvedor de matemáticas y química
 
-MazapanYCoca es una alternativa propia, gratuita y sin muros de pago a los resolvedores de tareas con IA. Toma como referencia de funciones a Solvely, pero no reutiliza su nombre, su marca ni su código.
+Ecuo es una alternativa propia, gratuita y sin muros de pago a los resolvedores de tareas con IA. Toma como referencia de funciones a Solvely, pero no reutiliza su nombre, su marca ni su código.
 
 **Funciona 100 % en el navegador.** Es HTML, CSS y JavaScript estático, sin paso de compilación y con todas las librerías incluidas en `vendor/`. Por eso funciona en GitHub Pages tal cual.
 

@@ -204,3 +204,10 @@ dialog .lbl { margin-top: 12px; }
   .el { border-radius: 2px; }
 }
 .brand .logo { object-fit: contain; border-radius: 8px; }
+.brand .logo { width: 44px; height: 44px; border-radius: 0; background: transparent; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+.brand-name { font-size: 1.35rem; font-weight: 800; }
+.brand-by { font-size: .72rem; font-weight: 600; color: var(--muted); letter-spacing: .02em; }
+/* El logo es de líneas negras: en modo oscuro se invierte a blanco */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand .logo { filter: invert(1); } }
+:root[data-theme="dark"] .brand .logo { filter: invert(1); }
