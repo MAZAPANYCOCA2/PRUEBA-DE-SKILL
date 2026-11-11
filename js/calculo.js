@@ -302,7 +302,7 @@
     const plot = Plot(canvas, { curves, v: p.v, shade: p.shade, mark: p.mark, xmin: opts.xmin, xmax: opts.xmax });
     wrap.querySelectorAll('[data-z]').forEach(b => b.addEventListener('click', () => plot.zoom(+b.dataset.z)));
     wrap.querySelector('[data-png]').addEventListener('click', () => {
-      const a = document.createElement('a'); a.download = 'grafica-ecuo.png'; a.href = canvas.toDataURL('image/png'); a.click();
+      const a = document.createElement('a'); a.download = 'grafica-mazapanycoca.png'; a.href = canvas.toDataURL('image/png'); a.click();
     });
   }
 

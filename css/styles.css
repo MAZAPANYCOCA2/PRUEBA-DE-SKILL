@@ -203,3 +203,4 @@ dialog .lbl { margin-top: 12px; }
   .ptable { gap: 1px; }
   .el { border-radius: 2px; }
 }
+.brand .logo { object-fit: contain; border-radius: 8px; }
