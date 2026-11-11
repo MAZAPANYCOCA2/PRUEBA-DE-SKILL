@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ecuo — Resolvedor de matemáticas y química</title>
+  <meta name="description" content="Resuelve álgebra, cálculo y química paso a paso, gratis y sin límites, directamente en tu navegador.">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Ecuo inicio">
+      <img src="assets/icon.svg" alt="" width="32" height="32"><span>Ecuo</span>
+    </a>
+    <div class="top-actions">
+      <button class="icon-btn" id="btn-history" title="Historial" aria-label="Historial">🕘</button>
+      <button class="icon-btn" id="btn-theme" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Resuelve matemáticas y química <em>paso a paso</em></h1>
+    <p>Álgebra, cálculo y química. Todo funciona en tu navegador: gratis, sin cuenta y sin límites.</p>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" class="tab active" data-tab="algebra">Álgebra</button>
+    <button role="tab" class="tab" data-tab="calculo">Cálculo</button>
+    <button role="tab" class="tab" data-tab="quimica">Química</button>
+    <button role="tab" class="tab" data-tab="ia">IA · Foto / texto</button>
+  </nav>
+
+  <main>
+    <!-- ÁLGEBRA -->
+    <section class="panel active" id="panel-algebra">
+      <div class="card">
+        <div class="modes" data-group="algebra">
+          <button class="mode active" data-mode="ecuacion">Ecuación</button>
+          <button class="mode" data-mode="sistema">Sistema</button>
+          <button class="mode" data-mode="factorizar">Factorizar</button>
+          <button class="mode" data-mode="simplificar">Simplificar</button>
+          <button class="mode" data-mode="expandir">Expandir</button>
+        </div>
+        <label class="lbl" for="alg-input" id="alg-label">Escribe la ecuación</label>
+        <textarea id="alg-input" class="math-input" rows="2" placeholder="2x^2 - 3x - 5 = 0" spellcheck="false"></textarea>
+        <div class="keypad" data-target="alg-input"></div>
+        <div class="preview" id="alg-preview"></div>
+        <div class="row">
+          <button class="btn primary" id="alg-go">Resolver</button>
+          <div class="examples" id="alg-examples"></div>
+        </div>
+      </div>
+      <div class="result" id="alg-result" aria-live="polite"></div>
+    </section>
+
+    <!-- CÁLCULO -->
+    <section class="panel" id="panel-calculo">
+      <div class="card">
+        <div class="modes" data-group="calculo">
+          <button class="mode active" data-mode="derivada">Derivada</button>
+          <button class="mode" data-mode="integral">Integral</button>
+          <button class="mode" data-mode="limite">Límite</button>
+          <button class="mode" data-mode="grafica">Gráfica</button>
+        </div>
+        <label class="lbl" for="calc-input">Función f(x)</label>
+        <textarea id="calc-input" class="math-input" rows="2" placeholder="x^2 * sin(x)" spellcheck="false"></textarea>
+        <div class="keypad" data-target="calc-input"></div>
+        <div class="extra" id="calc-extra"></div>
+        <div class="preview" id="calc-preview"></div>
+        <div class="row">
+          <button class="btn primary" id="calc-go">Resolver</button>
+          <div class="examples" id="calc-examples"></div>
+        </div>
+      </div>
+      <div class="result" id="calc-result" aria-live="polite"></div>
+    </section>
+
+    <!-- QUÍMICA -->
+    <section class="panel" id="panel-quimica">
+      <div class="card">
+        <div class="modes" data-group="quimica">
+          <button class="mode active" data-mode="balancear">Balancear</button>
+          <button class="mode" data-mode="masa">Masa molar</button>
+          <button class="mode" data-mode="esteq">Estequiometría</button>
+          <button class="mode" data-mode="tabla">Tabla periódica</button>
+        </div>
+        <div id="chem-form">
+          <label class="lbl" for="chem-input" id="chem-label">Ecuación química</label>
+          <input id="chem-input" class="math-input" placeholder="C3H8 + O2 -> CO2 + H2O" spellcheck="false" autocomplete="off">
+          <p class="hint" id="chem-hint">Separa reactivos y productos con <code>-&gt;</code> o <code>=</code>. Iones: <code>Fe^3+</code>. Hidratos: <code>CuSO4*5H2O</code>.</p>
+          <div class="row">
+            <button class="btn primary" id="chem-go">Resolver</button>
+            <div class="examples" id="chem-examples"></div>
+          </div>
+        </div>
+      </div>
+      <div class="result" id="chem-result" aria-live="polite"></div>
+    </section>
+
+    <!-- IA -->
+    <section class="panel" id="panel-ia">
+      <div class="card">
+        <div class="ia-head">
+          <p class="hint">Para problemas redactados o fotos de ejercicios. Usa <strong>tu propia clave</strong> de Anthropic (Claude) u OpenAI. La clave solo se guarda en este navegador y va directo al proveedor.</p>
+          <button class="btn ghost" id="ia-settings">⚙️ Configurar IA</button>
+        </div>
+        <div class="row">
+          <label class="lbl inline">Materia
+            <select id="ia-subject">
+              <option value="matematicas">Matemáticas</option>
+              <option value="quimica">Química</option>
+            </select>
+          </label>
+        </div>
+        <textarea id="ia-input" rows="4" placeholder="Ej.: Un tren sale a 80 km/h y otro a 100 km/h desde ciudades separadas 450 km. ¿Cuándo se cruzan?"></textarea>
+        <div class="drop" id="ia-drop">
+          <input type="file" id="ia-file" accept="image/*" capture="environment" hidden>
+          <span>📷 Toca para tomar o subir una foto, o arrastra / pega una imagen</span>
+          <img id="ia-thumb" alt="Vista previa" hidden>
+          <button class="icon-btn" id="ia-clear-img" hidden aria-label="Quitar imagen">✕</button>
+        </div>
+        <div class="row"><button class="btn primary" id="ia-go">Resolver con IA</button></div>
+      </div>
+      <div class="result" id="ia-result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Ecuo · Código abierto · Motor local: nerdamer, math.js y KaTeX · Comprueba siempre los resultados.</p>
+  </footer>
+
+  <!-- Historial -->
+  <dialog id="dlg-history">
+    <div class="dlg-head"><h2>Historial</h2><button class="icon-btn" data-close aria-label="Cerrar">✕</button></div>
+    <ul id="history-list"></ul>
+    <button class="btn ghost" id="history-clear">Borrar historial</button>
+  </dialog>
+
+  <!-- Ajustes IA -->
+  <dialog id="dlg-ia">
+    <form method="dialog" id="ia-form">
+      <div class="dlg-head"><h2>Configurar IA</h2><button class="icon-btn" value="cancel" aria-label="Cerrar">✕</button></div>
+      <label class="lbl">Proveedor
+        <select id="ia-provider">
+          <option value="anthropic">Anthropic (Claude)</option>
+          <option value="openai">OpenAI</option>
+        </select>
+      </label>
+      <label class="lbl">Modelo <input id="ia-model" spellcheck="false"></label>
+      <label class="lbl">Clave de API <input id="ia-key" type="password" autocomplete="off" spellcheck="false"></label>
+      <p class="hint">La clave se guarda en el almacenamiento local de este navegador. No la uses en computadoras compartidas.</p>
+      <div class="row">
+        <button class="btn primary" value="save" id="ia-save">Guardar</button>
+        <button class="btn ghost" type="button" id="ia-forget">Borrar clave</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/nerdamer.all.min.js"></script>
+  <script src="vendor/math.min.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/elementos.js"></script>
+  <script src="js/algebra.js"></script>
+  <script src="js/calculo.js"></script>
+  <script src="js/quimica.js"></script>
+  <script src="js/ia.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
